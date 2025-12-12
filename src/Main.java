@@ -26,6 +26,24 @@ public class Main {
         List<String> lista = new ArrayList<>();
         lista.add("Samsung");
         lista.add("Apple");
+        lista.add("Microsoft");
+
+        /*
+        Method metodoSet = null;
+
+        try {
+            metodoSet = obj.getClass().getMethod("setLi", String.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for (String v : lista) {
+                metodoSet.invoke(obj, v);
+            }
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }*/
 
         try {
             field = obj.getClass().getDeclaredField("li");
@@ -35,9 +53,15 @@ public class Main {
             e.printStackTrace();
         }
 
-        Field[] fields = obj.getClass().getFields();
-        for (Field f : fields) {
-            System.out.println(f.getName());
+        @SuppressWarnings("unchecked")
+        List<String> listaInterna = null;
+
+        try {
+            listaInterna = (List<String>) field.get(obj);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
+
+        System.out.println("Conteúdo dentro do objeto Lista: " + listaInterna);
     }
 }
